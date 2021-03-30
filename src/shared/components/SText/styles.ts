@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors, fontFamily, fullWidth, screenWidth } from '../styles/styles';
+import { colors, fontFamily, fullWidth, screenWidth } from '../../styles/styles';
 
 const DefaultTextInputStyles = StyleSheet.create({
   viewContainer: {flexDirection: 'column', marginBottom: 8},

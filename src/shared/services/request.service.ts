@@ -2,7 +2,7 @@ import { from, Observable, of } from 'rxjs';
 import { catchError, filter, pluck } from 'rxjs/operators';
 import { MutationOptions } from '@apollo/client';
 import _ from 'lodash';
-import { apolloClient } from '../shared/graph/apollo-client';
+import { apolloClient } from '../graph/apollo-client';
 
 import {
   FieldNode,
@@ -36,8 +36,7 @@ export function Mutation({mutation, variables}: MutationOptions): Observable<any
     mutation,
     variables,
   })).pipe(
-    catchError(error => of({data: null, errorMsg: `${error}`}))
-  ).pipe(
+    catchError(error => of({data: null, errorMsg: `${error}`})),
     filter((res) => {
       return _.has(res?.data, dataFields);
     }),

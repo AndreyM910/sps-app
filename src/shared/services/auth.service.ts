@@ -1,5 +1,5 @@
 import { gql} from '@apollo/client';
-import { map } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Mutation } from './request.service';
 
@@ -18,17 +18,15 @@ const SIGN_UP = gql`
 `;
 
 export function SignUpRequest(signUpInput: SignUpInput) {
-  Mutation({
+  return Mutation({
     mutation: SIGN_UP,
     variables: {input: signUpInput},
   }).pipe(
-    map(({authToken, ...user}) => {
-      AsyncStorage.setItem('authToken', authToken);
+    switchMap(async ({authToken, ...user}) => {
+      await AsyncStorage.setItem('authToken', authToken);
       return user
     })
-  ).subscribe((data) => {
-    console.log(1, data)
-  })
+  )
 }
 
 // SignIn
@@ -45,9 +43,12 @@ const SIGN_IN = gql`
 `;
 
 export function SignInRequest(signInInput: SignInInput) {
-  return Mutation({mutation: SIGN_IN, variables: {input: signInInput}}).pipe(
-    map(({authToken, ...user}) => {
-      AsyncStorage.setItem('authToken', authToken);
+  return Mutation({
+    mutation: SIGN_IN,
+    variables: {input: signInInput},
+  }).pipe(
+    switchMap(async ({authToken, ...user}) => {
+      await AsyncStorage.setItem('authToken', authToken);
       return user
     }),
   )

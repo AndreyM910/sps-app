@@ -11,11 +11,11 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		17E5C76AB52C42C0AC345209 /* Inconsolata-VariableFont_wdth,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1704DA07637049FE9A2E06AE /* Inconsolata-VariableFont_wdth,wght.ttf */; };
+		662556CB5CA844628AC0EE07 /* NewTegomin-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4D78C14F81348418E2B1277 /* NewTegomin-Regular.ttf */; };
 		6FEB4BE8F2663ECD40C1A73E /* libPods-sps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BFEE0D623709D99887193906 /* libPods-sps.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		9B0AC1C3AB189C74FDE2F0AB /* libPods-sps-spsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 310D62B781AB8DA69B1E4D6D /* libPods-sps-spsTests.a */; };
-		17E5C76AB52C42C0AC345209 /* Inconsolata-VariableFont_wdth,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1704DA07637049FE9A2E06AE /* Inconsolata-VariableFont_wdth,wght.ttf */; };
-		662556CB5CA844628AC0EE07 /* NewTegomin-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E4D78C14F81348418E2B1277 /* NewTegomin-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,15 +39,15 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = sps/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = sps/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = sps/main.m; sourceTree = "<group>"; };
+		1704DA07637049FE9A2E06AE /* Inconsolata-VariableFont_wdth,wght.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Inconsolata-VariableFont_wdth,wght.ttf"; path = "../assets/fonts/Inconsolata-VariableFont_wdth,wght.ttf"; sourceTree = "<group>"; };
 		1AF79D893B3D02DA67362CFB /* Pods-sps-spsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sps-spsTests.debug.xcconfig"; path = "Target Support Files/Pods-sps-spsTests/Pods-sps-spsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		310D62B781AB8DA69B1E4D6D /* libPods-sps-spsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-sps-spsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5160D5A929DE783C1E8AEA92 /* Pods-sps.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sps.debug.xcconfig"; path = "Target Support Files/Pods-sps/Pods-sps.debug.xcconfig"; sourceTree = "<group>"; };
 		579B798077E17548154AAD04 /* Pods-sps-spsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sps-spsTests.release.xcconfig"; path = "Target Support Files/Pods-sps-spsTests/Pods-sps-spsTests.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = sps/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BFEE0D623709D99887193906 /* libPods-sps.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-sps.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4D78C14F81348418E2B1277 /* NewTegomin-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "NewTegomin-Regular.ttf"; path = "../assets/fonts/NewTegomin-Regular.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		1704DA07637049FE9A2E06AE /* Inconsolata-VariableFont_wdth,wght.ttf */ = {isa = PBXFileReference; name = "Inconsolata-VariableFont_wdth,wght.ttf"; path = "../assets/fonts/Inconsolata-VariableFont_wdth,wght.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		E4D78C14F81348418E2B1277 /* NewTegomin-Regular.ttf */ = {isa = PBXFileReference; name = "NewTegomin-Regular.ttf"; path = "../assets/fonts/NewTegomin-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,14 +154,14 @@
 			sourceTree = "<group>";
 		};
 		B7CDD3B0A17D44B08CB314C2 /* Resources */ = {
-			isa = "PBXGroup";
+			isa = PBXGroup;
 			children = (
 				1704DA07637049FE9A2E06AE /* Inconsolata-VariableFont_wdth,wght.ttf */,
 				E4D78C14F81348418E2B1277 /* NewTegomin-Regular.ttf */,
 			);
 			name = Resources;
-			sourceTree = "<group>";
 			path = "";
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 

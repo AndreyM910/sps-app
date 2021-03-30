@@ -5,6 +5,8 @@ import {
   useColorScheme,
 } from 'react-native';
 import { ApolloProvider } from '@apollo/client';
+import Toast from 'react-native-root-toast';
+
 
 import RootNavigation from './src/RootNavigator';
 import { colors } from './src/shared/styles/styles';
@@ -21,6 +23,7 @@ const App = () => {
   return (
     <ApolloProvider client={apolloClient}>
       <SafeAreaView style={backgroundStyle}>
+        <Toast/>
         <StatusBar barStyle={isDarkMode ? 'default' : 'dark-content'} />
         <RootNavigation/>
       </SafeAreaView>

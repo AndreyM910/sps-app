@@ -2,6 +2,7 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { AuthNavigation, AuthRouteOptions } from './auth-navigator/AuthNavigation';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const RootStack = createStackNavigator();
 const combineRouteOptions: {
@@ -12,6 +13,8 @@ const combineRouteOptions: {
 };
 
 function RootNavigation() {
+
+  AsyncStorage.getItem('authToken').then(console.log)
   return (
     <NavigationContainer>
       <RootStack.Navigator initialRouteName={'SignIn'}>

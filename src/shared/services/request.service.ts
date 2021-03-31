@@ -22,7 +22,7 @@ import {
 //   | FragmentDefinitionNode;
 
 export function mutation({mutation, variables}: MutationOptions): Observable<any> {
-  const dataFields = getDateFields(mutation);
+  const dataFields = getDataFields(mutation);
 
   return from(apolloClient.mutate({
     mutation,
@@ -38,7 +38,7 @@ export function mutation({mutation, variables}: MutationOptions): Observable<any
 }
 
 export function query({query, variables}: QueryOptions): Observable<any> {
-  const dataFields = getDateFields(query);
+  const dataFields = getDataFields(query);
 
   return from(apolloClient.query({
     query,
@@ -53,7 +53,7 @@ export function query({query, variables}: QueryOptions): Observable<any> {
   )
 }
 
-function getDateFields({definitions}: DocumentNode) {
+function getDataFields({definitions}: DocumentNode) {
   return definitions.reduce((acc: string[], item) => {
     const {selectionSet} = item as OperationDefinitionNode;
     selectionSet.selections.forEach(selectionNode => {

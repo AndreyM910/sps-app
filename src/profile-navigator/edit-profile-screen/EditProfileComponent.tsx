@@ -7,8 +7,8 @@ import STextComponent from '../../shared/components/SText/STextComponent';
 import { meRequest } from '../../shared/services/user.service';
 import SignInStyles from './styles';
 import { UserInterface } from '../../shared/Interfaces/user.interface';
-import SHeaderComponent from '../../shared/components/SHeaderComponent/SHeaderComponent';
-import SHeaderButtonComponent from '../../shared/components/SHeaderButtonComponent/SHeaderButtonComponent';
+import SHeaderComponent from '../../shared/components/SHeader/SHeaderComponent';
+import SHeaderButtonComponent from '../../shared/components/SHeaderButton/SHeaderButtonComponent';
 
 export default function EditProfileComponent() {
   const navigation = useNavigation();

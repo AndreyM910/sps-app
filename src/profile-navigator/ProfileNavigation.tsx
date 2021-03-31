@@ -1,12 +1,15 @@
 import * as React from 'react';
-import { colors } from '../shared/styles/styles';
 import UserProfileComponent from './user-profile-screen/UserProfileComponent';
 import { createStackNavigator } from '@react-navigation/stack';
-import { RootStack } from '../RootNavigator';
+import { nonHeaderRoute, RootStack } from '../RootNavigator';
 import EditProfileComponent from './edit-profile-screen/EditProfileComponent';
 
 export const ProfileNavigation = {
   Profile: ProfileStackNavigation,
+};
+
+export const ProfileNavigationOptions: {[key: string]: any} = {
+  Profile: nonHeaderRoute,
 };
 
 const ProfileScreens = {
@@ -16,18 +19,9 @@ const ProfileScreens = {
 
 const ProfileStack = createStackNavigator();
 
-const nonHeader = {
-  headerLeft: null,
-  headerStyle: {
-    backgroundColor: colors.backgroundColor,
-    shadowOffset: {width: 0, height: 0},
-  },
-  headerTitle: null,
-};
-
-export const ProfileRouteOptions: {[key: string]: any} = {
-  UserProfile: nonHeader,
-  EditProfile: nonHeader,
+const ProfileRouteOptions: {[key: string]: any} = {
+  UserProfile: nonHeaderRoute,
+  EditProfile: nonHeaderRoute,
 };
 
 export function ProfileStackNavigation() {

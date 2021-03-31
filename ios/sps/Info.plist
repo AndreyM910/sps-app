@@ -55,6 +55,7 @@
 	<array>
 		<string>Inconsolata-VariableFont_wdth,wght.ttf</string>
 		<string>NewTegomin-Regular.ttf</string>
+		<string>FontAwesome.ttf</string>
 	</array>
 </dict>
 </plist>

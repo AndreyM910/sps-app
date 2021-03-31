@@ -1,9 +1,8 @@
 import { StyleSheet } from 'react-native';
-import { colors, fontFamily2 } from '../../shared/styles/styles';
+import { colors, fontFamily2, screenContainer } from '../../shared/styles/styles';
 
-const SignInStyles = StyleSheet.create({
-  logo: {fontFamily: fontFamily2, fontSize: 32},
-  viewContainer: {flex: 1, backgroundColor: colors.backgroundColor, justifyContent: 'space-around', alignItems: 'center'}
+const ProfileStyles = StyleSheet.create({
+  screenContainer,
 });
 
-export default SignInStyles;
+export default ProfileStyles;

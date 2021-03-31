@@ -10,7 +10,7 @@ import { UserInterface } from '../../shared/Interfaces/user.interface';
 import SHeaderComponent from '../../shared/components/SHeaderComponent/SHeaderComponent';
 import SHeaderButtonComponent from '../../shared/components/SHeaderButtonComponent/SHeaderButtonComponent';
 
-export default function ProfileComponent() {
+export default function EditProfileComponent() {
   const navigation = useNavigation();
   const toSignUp = () => navigation.navigate('SignUp');
   const toEditProfile = () => navigation.navigate('EditProfile');

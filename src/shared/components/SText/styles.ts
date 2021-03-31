@@ -1,9 +1,8 @@
 import { StyleSheet } from 'react-native';
-import { colors, fontFamily, fullWidth, screenWidth } from '../../styles/styles';
+import { fontFamily } from '../../styles/styles';
 
-const DefaultTextInputStyles = StyleSheet.create({
-  viewContainer: {flexDirection: 'column', marginBottom: 8},
-  primaryTextInput: {width: screenWidth - 60, borderBottomColor: colors.black, height: 40, borderBottomWidth: 1, borderRadius: 3, fontFamily}
-});
+const STextStyles = StyleSheet.create({
+  textStyle: {fontFamily}
+})
 
-export default DefaultTextInputStyles;
+export default STextStyles;

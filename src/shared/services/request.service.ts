@@ -1,6 +1,6 @@
 import { from, Observable, of } from 'rxjs';
 import { catchError, filter, pluck } from 'rxjs/operators';
-import { MutationOptions } from '@apollo/client';
+import { DocumentNode, MutationOptions, QueryOptions } from '@apollo/client';
 import _ from 'lodash';
 import { apolloClient } from '../graph/apollo-client';
 
@@ -21,16 +21,8 @@ import {
 //   | OperationDefinitionNode
 //   | FragmentDefinitionNode;
 
-export function Mutation({mutation, variables}: MutationOptions): Observable<any> {
-
-  const dataFields = mutation.definitions.reduce((acc: string[], item) => {
-    const {selectionSet} = item as OperationDefinitionNode;
-    selectionSet.selections.forEach(selectionNode => {
-      const {name} = selectionNode as FieldNode;
-      acc.push(name.value)
-    });
-    return acc;
-  }, []);
+export function mutation({mutation, variables}: MutationOptions): Observable<any> {
+  const dataFields = getDateFields(mutation);
 
   return from(apolloClient.mutate({
     mutation,
@@ -43,4 +35,39 @@ export function Mutation({mutation, variables}: MutationOptions): Observable<any
     pluck('data'),
     pluck(...dataFields),
   )
+}
+
+export function query({query, variables}: QueryOptions): Observable<any> {
+  const dataFields = getDateFields(query);
+
+  return from(apolloClient.query({
+    query,
+    variables,
+  })).pipe(
+    catchError(error => of({data: null, errorMsg: `${error}`})),
+    filter((res) => {
+      return _.has(res?.data, dataFields);
+    }),
+    pluck('data'),
+    pluck(...dataFields),
+  )
+}
+
+function getDateFields({definitions}: DocumentNode) {
+  return definitions.reduce((acc: string[], item) => {
+    const {selectionSet} = item as OperationDefinitionNode;
+    selectionSet.selections.forEach(selectionNode => {
+      const {name} = selectionNode as FieldNode;
+      acc.push(name.value)
+    });
+    return acc;
+  }, []);
+}
+
+export function sendRequest(observable: Observable<any>, callback?: (res: any) => void) {
+  const $obs = observable.subscribe(res => {
+    callback && callback(res);
+    $obs.unsubscribe();
+  });
+  return {loading: true};
 }

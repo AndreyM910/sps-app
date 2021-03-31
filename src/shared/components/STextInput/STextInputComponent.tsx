@@ -1,7 +1,7 @@
 import { Text, View, TextInput, StyleProp, TextStyle, TextInputProps } from 'react-native';
 import * as React from 'react';
 import DefaultTextInputStyles from './styles';
-import STextComponent from '../STextInput/STextComponent';
+import STextComponent from '../SText/STextComponent';
 
 export type SOnInputChange = (value: {inputName: string, value: string}) => void;
 interface STextInputComponentProps extends TextInputProps {

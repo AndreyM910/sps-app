@@ -3,15 +3,16 @@ import { useState } from 'react';
 import { Text, View, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import { SignUpRequest, SignUpInput } from '../../shared/services/auth.service';
-import STextComponent from '../../shared/components/STextInput/STextComponent';
-import STextInputComponent, { SOnInputChange } from '../../shared/components/SText/STextInputComponent';
+import STextComponent from '../../shared/components/SText/STextComponent';
+import STextInputComponent, { SOnInputChange } from '../../shared/components/STextInput/STextInputComponent';
 import SSubmitButton from '../../shared/components/SSubmitButton/SSubmitButtonComponent';
+import { SignUpInput, signUpRequest } from '../../shared/services/auth.service';
 import SignUpStyles from './styles';
 
 export default function SignUpComponent() {
   const navigation = useNavigation();
   const toSignIn = () => navigation.navigate('SignIn');
+  const toProfile = () => navigation.navigate('Profile');
 
   const [inputState, setInput] = useState<SignUpInput>({
     firstName: '',
@@ -24,7 +25,7 @@ export default function SignUpComponent() {
   };
 
   const onSubmit = () => {
-    SignUpRequest(inputState)
+    signUpRequest(inputState, toProfile);
   };
 
   return (

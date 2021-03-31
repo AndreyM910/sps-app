@@ -16,3 +16,8 @@ export const fontFamily2 = Platform.OS === "ios" ? 'New Tegomin' : 'NewTegomin-R
 
 export const fullWidth = Dimensions.get('window').width;
 export const screenWidth = fullWidth - 20;
+export const screenContainer = {
+  flex: 1,
+  padding: 10,
+  backgroundColor: colors.backgroundColor,
+};

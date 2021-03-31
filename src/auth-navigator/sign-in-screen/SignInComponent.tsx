@@ -3,15 +3,16 @@ import * as React from 'react';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
-import { SignInInput, SignInRequest } from '../../shared/services/auth.service';
-import STextComponent from '../../shared/components/STextInput/STextComponent';
-import STextInputComponent, { SOnInputChange } from '../../shared/components/SText/STextInputComponent';
+import STextComponent from '../../shared/components/SText/STextComponent';
+import STextInputComponent, { SOnInputChange } from '../../shared/components/STextInput/STextInputComponent';
 import SSubmitButton from '../../shared/components/SSubmitButton/SSubmitButtonComponent';
+import { SignInInput, signInRequest } from '../../shared/services/auth.service';
 import SignInStyles from './styles';
 
 export default function SignInComponent() {
   const navigation = useNavigation();
   const toSignUp = () => navigation.navigate('SignUp');
+  const toProfile = () => navigation.navigate('Profile');
 
   const [inputState, setInput] = useState<SignInInput>({
     email: '',
@@ -23,10 +24,7 @@ export default function SignInComponent() {
   };
 
   const onSubmit = () => {
-    const a = SignInRequest(inputState).subscribe(user => {
-      console.log(user)
-      a.unsubscribe()
-    })
+    signInRequest(inputState, toProfile);
   };
   return (
     <View style={SignInStyles.viewContainer}>

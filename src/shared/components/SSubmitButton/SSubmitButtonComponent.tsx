@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { TouchableOpacity } from 'react-native';
-import STextComponent from '../STextInput/STextComponent';
+import STextComponent from '../SText/STextComponent';
 import SSubmitButtonStyles from './style';
 
 interface SSubmitButtonProps {

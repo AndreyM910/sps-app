@@ -1,7 +1,23 @@
 import { gql} from '@apollo/client';
 import { switchMap } from 'rxjs/operators';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Mutation } from './request.service';
+import { from } from 'rxjs';
+import { mutation, sendRequest } from './request.service';
+import { UserInterface } from '../Interfaces/user.interface';
+
+// Token
+
+export function getToken() {
+  return from(AsyncStorage.getItem('auth_token'));
+}
+
+export function setToken(token: string) {
+  return from(AsyncStorage.setItem('auth_token', token));
+}
+
+export function removeToken() {
+  return from(AsyncStorage.removeItem('auth_token'));
+}
 
 // SignUp
 
@@ -17,17 +33,17 @@ const SIGN_UP = gql`
   }
 `;
 
-export function SignUpRequest(signUpInput: SignUpInput) {
-  return Mutation({
+export function signUpRequest(signUpInput: SignUpInput, callback?: (res: UserInterface) => void) {
+  return sendRequest(mutation({
     mutation: SIGN_UP,
     variables: {input: signUpInput},
   }).pipe(
-    switchMap(async ({authToken, ...user}) => {
-      await AsyncStorage.setItem('authToken', authToken);
-      return user
+    switchMap(async ({authToken}) => {
+      return setToken(authToken)
     })
-  )
+  ), callback);
 }
+
 
 // SignIn
 
@@ -42,14 +58,13 @@ const SIGN_IN = gql`
   }
 `;
 
-export function SignInRequest(signInInput: SignInInput) {
-  return Mutation({
+export function signInRequest(signInInput: SignInInput, callback?: (res: any) => void) {
+  return sendRequest(mutation({
     mutation: SIGN_IN,
     variables: {input: signInInput},
   }).pipe(
-    switchMap(async ({authToken, ...user}) => {
-      await AsyncStorage.setItem('authToken', authToken);
-      return user
+    switchMap(({authToken}) => {
+      return setToken(authToken)
     }),
-  )
+  ), callback);
 }

@@ -13,10 +13,10 @@ class TokenService {
   private tokenStream = new BehaviorSubject<{authToken: string | null, status: AuthorizedStatus}>({authToken: null, status: AuthorizedStatus.LOADING});
 
   constructor() {
-    TokenService.getTokenFromStorage().then((authToken) => this.setToken(authToken));
     this.tokenStream.subscribe(({authToken}) => {
       this.authToken = authToken;
-    })
+    });
+    TokenService.getTokenFromStorage().then((authToken) => this.sendToken(authToken));
   }
 
   private static getTokenFromStorage() {
@@ -36,7 +36,6 @@ class TokenService {
   }
 
   public setToken(authToken: string | null) {
-    this.authToken = null;
     authToken && AsyncStorage.setItem('auth_token', authToken).then(() => {
       this.sendToken(authToken)
     });

@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { AuthNavigation, AuthNavigationOptions } from './auth-navigator/AuthNavigation';
-import { getToken } from './shared/services/auth.service';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { ProfileNavigation, ProfileNavigationOptions } from './profile-navigator/ProfileNavigation';
-import { colors } from './shared/styles/styles';
-import { View } from 'react-native';
+import { nonHeaderRoute } from './shared/utils/nonHeaderRoute';
+import tokenService, { AuthorizedStatus } from './shared/services/token.service';
 
 export const RootStack = createBottomTabNavigator();
 const combineRouteOptions: {
@@ -17,17 +16,11 @@ const combineRouteOptions: {
   ...ProfileNavigationOptions,
 };
 
-enum AuthorizedStatus {
-  UNAUTHORIZED,
-  AUTHORIZED,
-  LOADING,
-}
-
 function RootNavigation() {
   const [authorized, setAuthorize] = useState(AuthorizedStatus.LOADING);
-  const $authorized = getToken().subscribe((token) => {
-    setAuthorize(!!token ? AuthorizedStatus.AUTHORIZED : AuthorizedStatus.UNAUTHORIZED);
-    $authorized.unsubscribe();
+  useEffect(() => {
+    const $token = tokenService.subscribeToAuthStatus(setAuthorize);
+    return () => $token.unsubscribe();
   });
   return (
     <NavigationContainer>
@@ -46,10 +39,5 @@ function RootNavigation() {
     </NavigationContainer>
   );
 }
-
-export const nonHeaderRoute = {
-  headerShown: false,
-};
-
 
 export default RootNavigation;

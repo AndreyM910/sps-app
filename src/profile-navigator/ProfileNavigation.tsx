@@ -1,8 +1,8 @@
 import * as React from 'react';
 import UserProfileComponent from './user-profile-screen/UserProfileComponent';
 import { createStackNavigator } from '@react-navigation/stack';
-import { nonHeaderRoute, RootStack } from '../RootNavigator';
 import EditProfileComponent from './edit-profile-screen/EditProfileComponent';
+import { nonHeaderRoute } from '../shared/utils/nonHeaderRoute';
 
 export const ProfileNavigation = {
   Profile: ProfileStackNavigation,
@@ -27,7 +27,7 @@ const ProfileRouteOptions: {[key: string]: any} = {
 export function ProfileStackNavigation() {
   return <ProfileStack.Navigator initialRouteName={'UserProfile'}>
     {Object.entries(ProfileScreens).map(([name, component]) => (
-      <RootStack.Screen key={name} name={name} component={component} options={ProfileRouteOptions[name]}/>
+      <ProfileStack.Screen key={name} name={name} component={component} options={ProfileRouteOptions[name]}/>
     ))}
   </ProfileStack.Navigator>
 }

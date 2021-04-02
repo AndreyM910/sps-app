@@ -9,11 +9,13 @@ import SignInStyles from './styles';
 import { UserInterface } from '../../shared/Interfaces/user.interface';
 import SHeaderComponent from '../../shared/components/SHeader/SHeaderComponent';
 import SHeaderButtonComponent from '../../shared/components/SHeaderButton/SHeaderButtonComponent';
+import tokenService from '../../shared/services/token.service';
 
 export default function EditProfileComponent() {
   const navigation = useNavigation();
   const toSignUp = () => navigation.navigate('SignUp');
   const toEditProfile = () => navigation.navigate('EditProfile');
+  const logOut = () => tokenService.removeToken();
   const [user, setUser] = useState<UserInterface>({firstName: '', email: '', authToken: ''});
   useEffect(() => {
     meRequest({}, setUser)
@@ -21,8 +23,6 @@ export default function EditProfileComponent() {
   return (
     <View style={SignInStyles.screenContainer}>
       <SHeaderComponent>
-        <SHeaderButtonComponent text={'Logout'} onPress={toEditProfile}/>
-        <SHeaderButtonComponent text={'Edit'} onPress={toEditProfile}/>
       </SHeaderComponent>
       <STextComponent>
         Hello {user.firstName}

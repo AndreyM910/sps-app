@@ -12,7 +12,6 @@ import SignUpStyles from './styles';
 export default function SignUpComponent() {
   const navigation = useNavigation();
   const toSignIn = () => navigation.navigate('SignIn');
-  const toProfile = () => navigation.navigate('Profile');
 
   const [inputState, setInput] = useState<SignUpInput>({
     firstName: '',
@@ -25,7 +24,7 @@ export default function SignUpComponent() {
   };
 
   const onSubmit = () => {
-    signUpRequest(inputState, toProfile);
+    signUpRequest(inputState);
   };
 
   return (

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import SignUpComponent from './sign-up-screen/SignUpComponent';
 import SignInComponent from './sign-in-screen/SignInComponent';
-import { nonHeaderRoute } from '../RootNavigator';
 import { createStackNavigator } from '@react-navigation/stack';
+import { nonHeaderRoute } from '../shared/utils/nonHeaderRoute';
 
 
 export const AuthNavigation = {

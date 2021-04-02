@@ -12,7 +12,6 @@ import SignInStyles from './styles';
 export default function SignInComponent() {
   const navigation = useNavigation();
   const toSignUp = () => navigation.navigate('SignUp');
-  const toProfile = () => navigation.navigate('Profile');
 
   const [inputState, setInput] = useState<SignInInput>({
     email: '',
@@ -24,7 +23,7 @@ export default function SignInComponent() {
   };
 
   const onSubmit = () => {
-    signInRequest(inputState, toProfile);
+    signInRequest(inputState);
   };
   return (
     <View style={SignInStyles.viewContainer}>

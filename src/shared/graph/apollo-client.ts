@@ -6,7 +6,9 @@ import { API_URL } from 'react-native-dotenv';
 
 export const apolloClient = new ApolloClient({
   connectToDevTools: true,
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    addTypename: false,
+  }),
   link: from([
     requestTimeLink,
     onErrorLink,

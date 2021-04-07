@@ -1,19 +1,31 @@
-import { ScrollView, View } from 'react-native';
+import { FlatList, View } from 'react-native';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 
 import { meRequest, UpdateUserInput, updateUserRequest } from '../../shared/services/user.service';
-import SignInStyles from './styles';
 import SHeaderComponent from '../../shared/components/SHeader/SHeaderComponent';
-import STextInputComponent, { SOnInputChange } from '../../shared/components/STextInput/STextInputComponent';
+import STextInputComponent, {
+  SOnInputChange,
+  STextInputComponentProps
+} from '../../shared/components/STextInput/STextInputComponent';
 import SSubmitButton from '../../shared/components/SSubmitButton/SSubmitButtonComponent';
+import GooglePlacesInput, {
+  GoogleAutocompleteComponentProps,
+  OnAddressChange
+} from '../../shared/components/GoogleAutocomplete/GoogleAutocompleteComponent';
 import EditProfileStyles from './styles';
+
+type InputListItem = STextInputComponentProps | GoogleAutocompleteComponentProps | any;
 
 export default function EditProfileComponent() {
   const [inputState, setInput] = useState<UpdateUserInput>({});
 
   const onInputChange: SOnInputChange = ({inputName, value}) => {
     setInput({...inputState, [inputName]: value});
+  };
+
+  const onAddressChange: OnAddressChange = ({address, coordinates}) => {
+    setInput({...inputState, address, coordinates})
   };
 
   useEffect(() => {
@@ -24,16 +36,28 @@ export default function EditProfileComponent() {
     updateUserRequest(inputState)
   };
 
+  // TODO: create InputListItem type
+  const inputList: Array<InputListItem> = [
+    {value: inputState.firstName, inputName: 'firstName', onInputChange, title: 'First Name'},
+    {value: inputState.lastName, inputName: 'lastName', onInputChange, title: 'Last Name'},
+    {value: inputState.email, inputName: 'email', onInputChange, title: 'Email'},
+    {inputName: 'address', address: inputState.address, onChange: onAddressChange},
+  ];
+
   return (
-    <View style={SignInStyles.screenContainer}>
+    <View style={EditProfileStyles.screenContainer}>
       <SHeaderComponent/>
       <View style={EditProfileStyles.formContainer}>
-      <ScrollView>
-      <STextInputComponent value={inputState.firstName} inputName={'firstName'} onInputChange={onInputChange} title={'First Name'}/>
-      <STextInputComponent value={inputState.lastName} inputName={'lastName'} onInputChange={onInputChange} title={'Last Name'}/>
-      <STextInputComponent value={inputState.email} inputName={'email'} onInputChange={onInputChange} title={'Email'}/>
-      </ScrollView>
-      <SSubmitButton onSubmit={updateUser} text={'Save'}/>
+        <FlatList
+          style={{flex: 1}}
+          data={inputList}
+          keyExtractor={item => item.inputName}
+          renderItem={({item}) => {
+            return item.inputName === 'address' ?
+              <GooglePlacesInput {...item}/>
+              : <STextInputComponent {...item}/>
+          }}/>
+        <SSubmitButton onSubmit={updateUser} text={'Save'}/>
       </View>
     </View>
   );

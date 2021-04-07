@@ -1,14 +1,13 @@
 import { gql} from '@apollo/client';
 import { mutation, query, sendRequest } from './request.service';
 import { UserInterface } from '../Interfaces/user.interface';
-import { map } from 'rxjs/operators';
-import tokenService from './token.service';
+import { CoordinatesInterface } from '../Interfaces/coordinates.interface';
 
 // ME
 
 const ME = gql`
   query me {
-    me {firstName, lastName, email, authToken}
+    me {firstName, lastName, email, authToken, coordinates {latitude, longitude}, address}
   }
 `;
 
@@ -29,20 +28,26 @@ export class UpdateUserInput {
       firstName,
       lastName,
       email,
+      address,
+      coordinates,
     }: UpdateUserInput
   ) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
+    this.address = address;
+    this.coordinates = coordinates;
   }
   firstName?: string;
   lastName?: string;
   email?: string;
+  address?: string;
+  coordinates?: CoordinatesInterface;
 }
 
 const UPDATE_USER = gql`
   mutation updateUser($input: UpdateUserInput!) {
-    updateUser(updateUserInput: $input) {firstName, email, authToken}
+    updateUser(updateUserInput: $input) {firstName, lastName, email, authToken, coordinates {latitude, longitude}, address}
 }
 `;
 

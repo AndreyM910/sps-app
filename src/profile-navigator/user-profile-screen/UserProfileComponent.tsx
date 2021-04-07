@@ -18,10 +18,10 @@ export default function UserProfileComponent() {
   const [user, setUser] = useState<UserInterface>({firstName: '', email: '', authToken: ''});
   useEffect(() => {
     meRequest({}, setUser)
-  });
+  }, []);
   return (
     <View style={SignInStyles.screenContainer}>
-      <SHeaderComponent>
+      <SHeaderComponent hideBackButton={true}>
         <SHeaderButtonComponent text={'Logout'} onPress={logOut}/>
         <SHeaderButtonComponent text={'Edit'} onPress={toEditProfile}/>
       </SHeaderComponent>

@@ -4,7 +4,6 @@ import { AuthNavigation, AuthNavigationOptions } from './auth-navigator/AuthNavi
 import { useEffect, useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { ProfileNavigation, ProfileNavigationOptions } from './profile-navigator/ProfileNavigation';
-import { nonHeaderRoute } from './shared/utils/nonHeaderRoute';
 import tokenService, { AuthorizedStatus } from './shared/services/token.service';
 
 export const RootStack = createBottomTabNavigator();
@@ -21,7 +20,7 @@ function RootNavigation() {
   useEffect(() => {
     const $token = tokenService.subscribeToAuthStatus(setAuthorize);
     return () => $token.unsubscribe();
-  });
+  }, []);
   return (
     <NavigationContainer>
       {authorized !== AuthorizedStatus.LOADING &&
@@ -33,7 +32,7 @@ function RootNavigation() {
         {Object.entries({
           ...(authorized === AuthorizedStatus.AUTHORIZED  ? {...ProfileNavigation} : AuthNavigation),
         }).map(([name, component]) => (
-          <RootStack.Screen key={name} name={name} component={component} options={combineRouteOptions[name] || nonHeaderRoute}/>
+          <RootStack.Screen key={name} name={name} component={component} options={combineRouteOptions[name]}/>
         ))}
       </RootStack.Navigator>}
     </NavigationContainer>

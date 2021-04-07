@@ -10,7 +10,7 @@ export const AuthNavigation = {
 };
 
 export const AuthNavigationOptions: {[key: string]: any} = {
-  Auth: nonHeaderRoute,
+  Auth: {tabBarVisible: false},
 };
 
 const AuthScreens = {
@@ -19,7 +19,7 @@ const AuthScreens = {
 };
 
 const AuthRouteOptions: {[key: string]: any} = {
-  SignIn: nonHeaderRoute,
+  SignIn: {...nonHeaderRoute, tabBarVisible: false},
   SignUp: nonHeaderRoute,
 };
 

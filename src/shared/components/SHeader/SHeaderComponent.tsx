@@ -6,15 +6,16 @@ import { colors } from '../../styles/styles';
 import { useNavigation } from '@react-navigation/native';
 
 interface SHeaderProps {
-  children: React.ReactNode
+  children?: React.ReactNode,
+  hideBackButton?: boolean,
 }
 
-export default function SHeaderComponent({children}: SHeaderProps) {
+export default function SHeaderComponent({children, hideBackButton}: SHeaderProps) {
   const navigation = useNavigation();
   return (<View style={SHeaderStyles.container}>
-    <TouchableOpacity style={SHeaderStyles.backButton} onPress={navigation.goBack}>
+    {hideBackButton ? <View/> : <TouchableOpacity style={SHeaderStyles.backButton} onPress={navigation.goBack}>
       <SIconComponent name={'angle-left'} color={colors.black} size={30}/>
-    </TouchableOpacity>
+    </TouchableOpacity>}
     <View style={SHeaderStyles.rightButtonGroup}>
       {children}
     </View>

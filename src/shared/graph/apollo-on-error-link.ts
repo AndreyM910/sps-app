@@ -1,13 +1,13 @@
 import { onError } from '@apollo/client/link/error';
 import { showToast } from '../components/SToast/SToast';
-import { removeToken } from '../services/auth.service';
+import tokenService from '../services/token.service';
 
 export const onErrorLink = onError(({ graphQLErrors, networkError }) => {
   if (graphQLErrors)
     graphQLErrors.forEach(({ message, locations, path, extensions }) => {
       showToast(message);
       if (extensions?.exception.status === 401) {
-        const $removeToken = removeToken().subscribe(() => $removeToken.unsubscribe)
+        tokenService.removeToken();
       }
 
         console.log(

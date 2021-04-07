@@ -1,38 +1,40 @@
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
 
-import STextComponent from '../../shared/components/SText/STextComponent';
-import { meRequest } from '../../shared/services/user.service';
+import { meRequest, UpdateUserInput, updateUserRequest } from '../../shared/services/user.service';
 import SignInStyles from './styles';
-import { UserInterface } from '../../shared/Interfaces/user.interface';
 import SHeaderComponent from '../../shared/components/SHeader/SHeaderComponent';
-import SHeaderButtonComponent from '../../shared/components/SHeaderButton/SHeaderButtonComponent';
-import tokenService from '../../shared/services/token.service';
+import STextInputComponent, { SOnInputChange } from '../../shared/components/STextInput/STextInputComponent';
+import SSubmitButton from '../../shared/components/SSubmitButton/SSubmitButtonComponent';
+import EditProfileStyles from './styles';
 
 export default function EditProfileComponent() {
-  const navigation = useNavigation();
-  const toSignUp = () => navigation.navigate('SignUp');
-  const toEditProfile = () => navigation.navigate('EditProfile');
-  const logOut = () => tokenService.removeToken();
-  const [user, setUser] = useState<UserInterface>({firstName: '', email: '', authToken: ''});
+  const [inputState, setInput] = useState<UpdateUserInput>({});
+
+  const onInputChange: SOnInputChange = ({inputName, value}) => {
+    setInput({...inputState, [inputName]: value});
+  };
+
   useEffect(() => {
-    meRequest({}, setUser)
-  });
+    meRequest({}, (user) => {setInput(new UpdateUserInput(user))})
+  }, []);
+
+  const updateUser = () => {
+    updateUserRequest(inputState)
+  };
+
   return (
     <View style={SignInStyles.screenContainer}>
-      <SHeaderComponent>
-      </SHeaderComponent>
-      <STextComponent>
-        Hello {user.firstName}
-      </STextComponent>
-      <STextComponent>
-        Email: {user.email}
-      </STextComponent>
-      <STextComponent>
-        Coordinates: {user.lastName}
-      </STextComponent>
+      <SHeaderComponent/>
+      <View style={EditProfileStyles.formContainer}>
+      <ScrollView>
+      <STextInputComponent value={inputState.firstName} inputName={'firstName'} onInputChange={onInputChange} title={'First Name'}/>
+      <STextInputComponent value={inputState.lastName} inputName={'lastName'} onInputChange={onInputChange} title={'Last Name'}/>
+      <STextInputComponent value={inputState.email} inputName={'email'} onInputChange={onInputChange} title={'Email'}/>
+      </ScrollView>
+      <SSubmitButton onSubmit={updateUser} text={'Save'}/>
+      </View>
     </View>
   );
 }

@@ -9,7 +9,7 @@ export const ProfileNavigation = {
 };
 
 export const ProfileNavigationOptions: {[key: string]: any} = {
-  Profile: nonHeaderRoute,
+  Profile: {},
 };
 
 const ProfileScreens = {

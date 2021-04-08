@@ -1,25 +1,33 @@
-import { gql} from '@apollo/client';
-import { mutation, query, sendRequest } from './request.service';
+import { gql } from '@apollo/client';
+import { useEffect, useState } from 'react';
+import { mutation, query, sendRequest, watchQuery } from './request.service';
 import { UserInterface } from '../Interfaces/user.interface';
 import { CoordinatesInterface } from '../Interfaces/coordinates.interface';
+import { BasicUserTemplate } from '../fragments/basic-user.template';
 
 // ME
 
-const ME = gql`
+export const ME = gql`
   query me {
-    me {firstName, lastName, email, authToken, coordinates {latitude, longitude}, address}
+    me ${BasicUserTemplate}
   }
 `;
 
-
-export function meRequest(variables: {}, callback: (user: UserInterface) => void) {
+export function meRequest(variables: {}, callback?: (user: UserInterface) => void) {
   return sendRequest(query({
     query: ME,
     variables: {},
   }), callback)
 }
 
-
+export function useMeRequest() {
+  const [user, setUser] = useState<UserInterface>({firstName: '', email: '', authToken: ''});
+  useEffect(() => {
+    const $user = watchQuery({query: ME}).subscribe(setUser);
+    return $user.unsubscribe;
+  }, []);
+  return user;
+}
 // UpdateUser
 
 export class UpdateUserInput {
@@ -45,15 +53,17 @@ export class UpdateUserInput {
   coordinates?: CoordinatesInterface;
 }
 
-const UPDATE_USER = gql`
+export const UPDATE_USER = gql`
+    
   mutation updateUser($input: UpdateUserInput!) {
-    updateUser(updateUserInput: $input) {firstName, lastName, email, authToken, coordinates {latitude, longitude}, address}
+    updateUser(updateUserInput: $input) ${BasicUserTemplate}
 }
 `;
 
-export function updateUserRequest(updateUserInput: UpdateUserInput, callback?: (authToken: string | null) => void) {
+export function updateUserRequest(updateUserInput: UpdateUserInput, callback?: (user: UserInterface) => void) {
   return sendRequest(mutation({
     mutation: UPDATE_USER,
     variables: {input: updateUserInput},
+    refetchQueries: [{query: ME}]
   }), callback);
 }

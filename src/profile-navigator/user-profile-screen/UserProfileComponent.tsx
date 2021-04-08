@@ -1,12 +1,10 @@
 import { View } from 'react-native';
 import * as React from 'react';
-import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 import STextComponent from '../../shared/components/SText/STextComponent';
-import { meRequest } from '../../shared/services/user.service';
+import { useMeRequest } from '../../shared/services/user.service';
 import SignInStyles from './styles';
-import { UserInterface } from '../../shared/Interfaces/user.interface';
 import SHeaderComponent from '../../shared/components/SHeader/SHeaderComponent';
 import SHeaderButtonComponent from '../../shared/components/SHeaderButton/SHeaderButtonComponent';
 import tokenService from '../../shared/services/token.service';
@@ -15,10 +13,7 @@ export default function UserProfileComponent() {
   const navigation = useNavigation();
   const logOut = () => tokenService.removeToken();
   const toEditProfile = () => navigation.navigate('EditProfile');
-  const [user, setUser] = useState<UserInterface>({firstName: '', email: '', authToken: ''});
-  useEffect(() => {
-    meRequest({}, setUser)
-  }, []);
+  const user = useMeRequest();
   return (
     <View style={SignInStyles.screenContainer}>
       <SHeaderComponent hideBackButton={true}>

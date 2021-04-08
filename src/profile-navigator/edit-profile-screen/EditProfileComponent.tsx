@@ -1,6 +1,7 @@
 import { FlatList, View } from 'react-native';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 import { meRequest, UpdateUserInput, updateUserRequest } from '../../shared/services/user.service';
 import SHeaderComponent from '../../shared/components/SHeader/SHeaderComponent';
@@ -18,6 +19,7 @@ import EditProfileStyles from './styles';
 type InputListItem = STextInputComponentProps | GoogleAutocompleteComponentProps | any;
 
 export default function EditProfileComponent() {
+  const navigation = useNavigation();
   const [inputState, setInput] = useState<UpdateUserInput>({});
 
   const onInputChange: SOnInputChange = ({inputName, value}) => {
@@ -33,7 +35,7 @@ export default function EditProfileComponent() {
   }, []);
 
   const updateUser = () => {
-    updateUserRequest(inputState)
+    updateUserRequest(inputState, navigation.goBack);
   };
 
   // TODO: create InputListItem type

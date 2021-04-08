@@ -21,12 +21,12 @@ import {
 //   | OperationDefinitionNode
 //   | FragmentDefinitionNode;
 
-export function mutation({mutation, variables}: MutationOptions): Observable<any> {
+export function mutation({mutation, ...options}: MutationOptions): Observable<any> {
   const dataFields = getDataFields(mutation);
 
   return from(apolloClient.mutate({
     mutation,
-    variables,
+    ...options,
   })).pipe(
     catchError(error => of({data: null, errorMsg: `${error}`})),
     filter((res) => {
@@ -53,13 +53,32 @@ export function query({query, variables}: QueryOptions): Observable<any> {
   )
 }
 
+export function watchQuery({query, variables}: QueryOptions): Observable<any> {
+  const dataFields = getDataFields(query);
+
+  // TODO: ObservableQuery and ObservableInput
+  return from(apolloClient.watchQuery({
+    query,
+    variables,
+  })).pipe(
+    catchError(error => of({data: null, errorMsg: `${error}`})),
+    filter((res) => {
+      return _.has(res?.data, dataFields);
+    }),
+    pluck('data'),
+    pluck(...dataFields),
+  )
+}
+
 function getDataFields({definitions}: DocumentNode) {
   return definitions.reduce((acc: string[], item) => {
-    const {selectionSet} = item as OperationDefinitionNode;
-    selectionSet.selections.forEach(selectionNode => {
-      const {name} = selectionNode as FieldNode;
-      acc.push(name.value)
-    });
+    const {selectionSet, kind} = item as OperationDefinitionNode;
+    if (kind === 'OperationDefinition') {
+      selectionSet.selections.forEach(selectionNode => {
+        const {name} = selectionNode as FieldNode;
+        acc.push(name.value)
+      });
+    }
     return acc;
   }, []);
 }

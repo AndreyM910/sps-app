@@ -5,5 +5,6 @@ export interface UserInterface {
   lastName?: string;
   authToken: string;
   email: string;
+  address?: string;
   coordinates?: CoordinatesInterface
 }

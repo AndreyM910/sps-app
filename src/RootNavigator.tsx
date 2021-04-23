@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { ProfileNavigation, ProfileNavigationOptions } from './profile-navigator/ProfileNavigation';
 import tokenService, { AuthorizedStatus } from './shared/services/token.service';
+import { SearchNavigation, SearchNavigationOptions } from './search-navigator/SearchNavigation';
 
 export const RootStack = createBottomTabNavigator();
 const combineRouteOptions: {
@@ -13,6 +14,7 @@ const combineRouteOptions: {
 } = {
   ...AuthNavigationOptions,
   ...ProfileNavigationOptions,
+  ...SearchNavigationOptions,
 };
 
 function RootNavigation() {
@@ -30,7 +32,7 @@ function RootNavigation() {
           // have some doubts about it
         }
         {Object.entries({
-          ...(authorized === AuthorizedStatus.AUTHORIZED  ? {...ProfileNavigation} : AuthNavigation),
+          ...(authorized === AuthorizedStatus.AUTHORIZED  ? {...ProfileNavigation, ...SearchNavigation} : AuthNavigation),
         }).map(([name, component]) => (
           <RootStack.Screen key={name} name={name} component={component} options={combineRouteOptions[name]}/>
         ))}

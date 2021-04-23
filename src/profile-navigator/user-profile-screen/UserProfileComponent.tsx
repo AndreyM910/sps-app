@@ -4,10 +4,10 @@ import { useNavigation } from '@react-navigation/native';
 
 import STextComponent from '../../shared/components/SText/STextComponent';
 import { useMeRequest } from '../../shared/services/user.service';
-import SignInStyles from './styles';
 import SHeaderComponent from '../../shared/components/SHeader/SHeaderComponent';
 import SHeaderButtonComponent from '../../shared/components/SHeaderButton/SHeaderButtonComponent';
 import tokenService from '../../shared/services/token.service';
+import ProfileStyles from './styles';
 
 export default function UserProfileComponent() {
   const navigation = useNavigation();
@@ -15,7 +15,7 @@ export default function UserProfileComponent() {
   const toEditProfile = () => navigation.navigate('EditProfile');
   const user = useMeRequest();
   return (
-    <View style={SignInStyles.screenContainer}>
+    <View style={ProfileStyles.screenContainer}>
       <SHeaderComponent hideBackButton={true}>
         <SHeaderButtonComponent text={'Logout'} onPress={logOut}/>
         <SHeaderButtonComponent text={'Edit'} onPress={toEditProfile}/>
@@ -27,7 +27,7 @@ export default function UserProfileComponent() {
         Email: {user.email}
       </STextComponent>
       <STextComponent>
-        Coordinates: {user.lastName}
+        Address: {user.address}
       </STextComponent>
     </View>
   );
